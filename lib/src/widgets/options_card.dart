@@ -14,6 +14,7 @@ class OptionsCard extends StatelessWidget{
             ),
 
             DropdownButton<MaterialColor>(
+              hint: Text('Choose Color'),
               onChanged: (value)=> print(value),
               items: <DropdownMenuItem<MaterialColor>>[
                 DropdownMenuItem(

@@ -15,7 +15,7 @@ class _EditorState extends State<Editor>{
         appBar: AppBar(
           title: Text('Widgets On Demand'),
         ),
-        body: Text('Hello World!'),
+        body: buildListOfOptionsCards(toExport),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: _addWidget,
@@ -23,7 +23,21 @@ class _EditorState extends State<Editor>{
       );
     }
 
-    void _addWidget(){
+  void _addWidget(){
+    setState(() {
       toExport.add(OptionsCard());
-    }
+    });
+  }
+
+  Widget buildListOfOptionsCards(List<OptionsCard> cards){
+    return Container(
+      child: ListView(
+        children: <Widget>[
+          Column(
+            children: cards,
+          )
+        ],
+      ),
+    );
+  }
 }
