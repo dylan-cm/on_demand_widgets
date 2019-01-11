@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 import '../widgets/options_card.dart';
+import '../blocs/editor_bloc.dart';
 
-class Editor extends StatefulWidget {
+class Editor extends StatelessWidget{
   @override
-    State<StatefulWidget> createState() => _EditorState();
-}
+  Widget build(BuildContext context) {
+    final bloc = EditorBloc();
 
-class _EditorState extends State<Editor>{
-  List<OptionsCard> toExport = [];
-
-  @override
-    Widget build(BuildContext context) {
-      return Scaffold(
+    return StreamBuilder(
+      stream: bloc.cardList,
+      builder: (context, snapshot) => Scaffold(
         appBar: AppBar(
           title: Text('Widgets On Demand'),
         ),
-        body: buildListOfOptionsCards(toExport),
+        body: buildListOfOptionsCards(bloc.cardList.value),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: _addWidget,
+          onPressed: () => bloc.addCard(new OptionsCard()),
         ),
-      );
-    }
-
-  void _addWidget(){
-    setState(() {
-      toExport.add(OptionsCard());
-    });
+      ),
+    ); 
   }
 
   Widget buildListOfOptionsCards(List<OptionsCard> cards){
