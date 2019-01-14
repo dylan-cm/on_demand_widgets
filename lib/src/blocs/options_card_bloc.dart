@@ -27,6 +27,7 @@ class OptionsCardBloc {
   ValueObservable<String> get screenName => _screenName.stream;
 
   void dispose(){
+    print(_primaryColorName.value + _screenName.value);
     _primaryColor.close();
     _primaryColorName.close();
     _screenName.close();
@@ -36,8 +37,10 @@ class OptionsCardBloc {
     _primaryColor.sink.add(color);
     if(color == Colors.blue[500]){
       _primaryColorName.sink.add("Blue");
+      print('blue');
     } else {
       _primaryColorName.sink.add("Red");
+      print('red');
     }
     // print(name);
   }

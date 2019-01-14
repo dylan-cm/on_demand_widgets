@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import '../blocs/options_card_bloc.dart';
 
 class OptionsCard extends StatelessWidget{
+
+  final Function delete;
+  final int id;
+
+  final bloc = OptionsCardBloc();
+
+  OptionsCard({
+    Key key,
+    this.id,
+    this.delete
+    }) : super(key : key);
+
   @override
   Widget build(BuildContext context) {
-    final bloc = OptionsCardBloc();
+    
+    
 
     return Card(
       child: Column(
@@ -12,22 +25,26 @@ class OptionsCard extends StatelessWidget{
           titleBuilder(bloc),
           screenNameBuilder(bloc),
           colorPickerBuilder(bloc),
-          deleteButton(),
+          deleteButton(bloc),
         ],
       ),
     );
   }
 
-  Widget deleteButton(){
-    return ButtonTheme.bar(
-      child: ButtonBar(
-        children: <Widget>[
-          FlatButton(
-            onPressed: () => print('Delete'),
-            child: Text('Delete'),
-          ),
-        ],
-      ),
+  Widget deleteButton(OptionsCardBloc bloc){
+    return  ButtonTheme.bar(
+        child: ButtonBar(
+          children: <Widget>[
+            FlatButton(
+              onPressed: () {
+                delete(this.id);
+                bloc.dispose();
+              },
+              child: Text('Delete'),
+            ),
+          ],
+        ),
+      
     );
   }
 
